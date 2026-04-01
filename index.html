@@ -1,353 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SF Crime: Two Decades of Data</title>
-  <style>
-    :root {
-      --bg: #433232;
-      --panel: #664B4B;
-      --panel-hover: #785959;
-      --text: #E8E3E3;
-      --muted: #CABEBE;
-      --accent: #9C241E;
-      --accent-dark: #631713;
-      --border: rgba(255, 255, 255, 0.08);
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crimes of San Francisco</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Playfair+Display:wght@600;700&family=Source+Serif+4:wght@400;500&display=swap" rel="stylesheet">
 
-    html {
-      scroll-behavior: smooth;
-    }
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        body {
+            font-family: 'Source Serif 4', serif;
+            margin: 0;
+            background-color: #f4efe6;
+            background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+            color: #222;
+            line-height: 1.75;
+        }
 
-    .container {
-      width: min(1100px, 92%);
-      margin: 0 auto;
-    }
+        header {
+            height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #e8dfd1;
+            padding: 30px 20px;
+        }
 
-    header {
-      width: 100%;
-      padding: 4.5rem 0 3rem;
-      /*background: linear-gradient(180deg, rgba(22, 199, 154, 0.08), rgba(26, 26, 46, 0));*/
-      border-bottom: 1px solid var(--border);
-    }
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 60px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            max-width: 1100px;
+            margin-bottom: 20px;
+        }
 
-    .header-inner {
-      max-width: 800px;
-    }
+        header p {
+            font-size: 18px;
+            color: #555;
+            max-width: 700px;
+        }
 
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      line-height: 1.15;
-      margin-bottom: 1rem;
-      color: var(--text);
-    }
+        /* 🔥 LESS SPACE AFTER HEADER */
+        section {
+            max-width: 1100px;
+            margin: 50px auto; /* reduced from 80px */
+        }
 
-    .accent {
-      color: var(--accent);
-    }
+        .text-box {
+            max-width: 700px;
+            margin: 0 auto 10px auto; /* tighter spacing */
+            padding: 35px;
+            background: rgba(255, 250, 240, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
 
-    .intro {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 70ch;
-    }
+        /* 🔥 FIGURE SPACING FIXED */
+        .viz {
+            max-width: 700px;
+            margin: 0 auto 30px auto; /* reduced from 80px */
+        }
 
-    main {
-      padding: 2.5rem 0 4rem;
-    }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+        }
 
-    .section-title {
-      font-size: 1.4rem;
-      margin-bottom: 1.25rem;
-      color: var(--accent);
-    }
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-    }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 10px;
+        }
 
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.25rem;
-      box-shadow: var(--shadow);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
-    }
+        p {
+            font-size: 16.5px;
+            color: #333;
+            line-height: 1.75;
+        }
 
-    .card:hover {
-      transform: translateY(-6px);
-      background: var(--panel-hover);
-      border-color: rgba(22, 199, 154, 0.35);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
-    }
+        .fig-caption {
+            max-width: 700px;
+            margin: -30px auto 30px auto; /* tighter */
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
 
-    .card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-    }
+        .references {
+            max-width: 700px;
+            margin: 80px auto;
+        }
 
-    .card p {
-      font-size: 0.97rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
+        .references h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
 
-    .card a {
-      display: inline-block;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
+        .references p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-indent: -20px;
+            padding-left: 20px;
+        }
 
-    .card a:hover {
-      color: #D9A65F;
-      transform: translateX(2px);
-    }
+        .references a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
 
-    footer {
-      padding: 1.5rem 0 2.5rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 3.25rem 0 2.25rem;
-      }
-
-      .card {
-        padding: 1rem;
-      }
-
-      .intro {
-        font-size: 1rem;
-      }
-    }
-      .viz-section {
-  margin-top: 3rem;
-}
-
-.viz-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  align-items: center;
-}
-
-.viz-plot {
-  background: #22223b;
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.viz-plot img,
-.viz-plot iframe {
-  width: 100%;
-  height: 400px;
-  border: none;
-  border-radius: 8px;
-}
-
-.viz-text {
-  color: #c9d1d9;
-}
-
-.viz-text h3 {
-  color: #16c79a;
-  margin-bottom: 0.5rem;
-}
-
-.viz-text p {
-  margin-bottom: 1rem;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .viz-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .viz-plot iframe,
-  .viz-plot img {
-    height: 300px;
-  }
-}
-.viz-section {
-      margin: 3rem auto;
-      padding: 2rem;
-      background: #22223b;
-      border-radius: 16px;
-      max-width: 1000px;
-    }
-
-    .viz-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .viz-plot {
-      max-width: 800px;
-      width: 100%;
-      margin: 1rem auto;
-    }
-
-    .viz-plot img,
-    .viz-plot iframe {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-
-      /* Images (bar plot) */
-      .viz-plot img {
-          width: 100%;
-          height: auto;
-          border-radius: 10px;
-      }
-      
-      /* Heatmap (iframe) */
-      .viz-plot iframe {
-          width: 100%;
-          height: 600px;   /* 👈 THIS CONTROLS SIZE */
-          border: none;
-          border-radius: 10px;
-      }
-      
-
-    .viz-text {
-      max-width: 700px;
-      margin: 1rem auto;
-      color: #c9d1d9;
-    }
-  </style>
+        .references a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
-  <header>
-    <div class="container header-inner">
-      <h1>SF Crime: <span class="accent">Two Decades of Data</span></h1>
-      <p class="intro">
-        This portfolio explores patterns, shifts, and hotspots in San Francisco crime data across the last twenty years. 
-        It brings together interactive visuals and focused analyses to show how crime changes over time, across neighborhoods, and by offense type.
-      </p>
-    </div>
-  </header>
 
-  <main>
-    <div class="container">
-      <h2 class="section-title">Portfolio Projects</h2>
+<header>
+    <h1>
+        Two Crimes, One Pattern: The Hidden Patterns Between Assaults and Robberies in San Francisco
+    </h1>
 
-      <section class="card-grid">
-        <article class="card">
-          <h3>Crime Trends Over Time</h3>
-          <p>A year-by-year view of how reported crime has changed across two decades.</p>
-          <a href="#">View analysis</a>
-        </article>
+    <p>
+        Drawing on two decades of data, this analysis uncovers how assault and robbery are interconnected across San Francisco's urban landscape. Want to know where it's safe to explore—and where to stay cautious? Read on.
+    </p>
+</header>
 
-        <article class="card">
-          <h3>Neighborhood Hotspots</h3>
-          <p>An interactive map highlighting where crime is most concentrated in the city.</p>
-          <a href="#">Explore map</a>
-        </article>
-
-        <article class="card">
-          <h3>Category Breakdown</h3>
-          <p>A comparison of major offense types and how their patterns differ over time.</p>
-          <a href="#">See categories</a>
-        </article>
-
-        <article class="card">
-          <h3>Seasonal Patterns</h3>
-          <p>A look at how crime varies by month, season, and recurring annual cycles.</p>
-          <a href="#">Open chart</a>
-        </article>
-
-        <article class="card">
-          <h3>Day and Hour Analysis</h3>
-          <p>A timeline of when incidents are most likely to happen during the week.</p>
-          <a href="#">View timing data</a>
-        </article>
-
-        <article class="card">
-          <h3>District Comparison</h3>
-          <p>A side-by-side overview of crime levels across police districts in San Francisco.</p>
-          <a href="#">Compare districts</a>
-        </article>
-      </section>
-    </div>
-  </main>
-
- <section class="viz-section">
-  <h2 style="color:#16c79a;">Bar Plot Analysis</h2>
-
-  <div class="viz-grid">
-
-    <!-- PLOT -->
-    <div class="viz-plot">
-      <img src="images/distribution.svg" alt="Bar plot">
+<section id="viz1">
+    <div class="text-box">
+        <p>
+            The detection and prevention of crime is a  field that has been continuersly modernised and especially revolutionized since the implementation of larger crime data analysis in the form of predictive police software. Crime data is now used in most american police districts to systematically organise the departments ressources for the best prevention.<br> 
+Such data can be used to show statistical correlation, and help the police notice patterns in the occurence of different types of crimes. The flip side of large scale use of predictive police software is the missing reasoning for the analytical conclusions. Data analysis is based on numbers and categories and the specific definitions therefore has a large influence of what category the specific crime is classified under. Furthermore, socioeconomic, incidents and seasonal occasions are just other factors that has a great influence in explaining crime patterns, but is something that can not be solely explained through data.<br>
+It is therefore found interesting to look deeper into the relationship between different crime types, their occurence timewise and geographicly and further more their development the last twenty years, to help better understand what can be studied through data, and what needs to be further explained through other cultural and sociatal explanations.  <br>
+This article will explain such a study that will provide statistical analysis of crime data, while trying to compliment the explaining with other socio-economic evidence. The article will use a dataframe from the San Francisco Police Department with data concerning crime occurances from 2003-2026. To simplify the analysis it will be based on to crime types: Assault and Robbery. The reasoning for choosing these two crimes is that they at first glance are thought of as very similar. 
+Robbery and assault both occurs more often in larger cities, can happen impulsively and is something that is associated with more socially vulnerable areas.  </p>
+        
+            <h2>The correlation between Assault & Robbery</h2>
+        <p>
+But how does the two crimes relation look when studied further?
+Looking at the statistical relation of the two crimes in graph below, it can be seen that the relation is very strong. Here the relation between the two crimes occurences during the different weekdays in San Francisco happens to have a r^2 value of 0.91. This means that the two crimes are very correlated and has very similar occurance patterns thorugh out the week.
+        </p>
     </div>
 
-    <!-- TEXT -->
-    <div class="viz-text">
-      <h3>Insights</h3>
-      <p>
-        This bar plot shows the distribution of crime categories in San Francisco.
-        Theft-related crimes dominate, followed by assault and burglary.
-      </p>
+    <div class="viz">
+        <img src="Images/Linear_regression_between_Assault_Robbery.png">
     </div>
-
-  </div>
 </section>
 
-
-<section class="viz-section">
-  <h2 style="color:#16c79a;">Heatmap Analysis</h2>
-
-  <div class="viz-grid">
-
-    <!-- PLOT -->
-    <div class="viz-plot">
-      <iframe src="visualisations/SF_prost_map.html"></iframe>
+<section id="viz4">
+    <div class="text-box">
+        <h2>Where do Assault and Robbery occur across the City?</h2>
+        <p>
+           A natural question that arises when observing this linear correlation is if there are other similarities between the two crimes, e.g. where the crimes occur or if there is a correlation in other timeframes. One might even ask which demographic groups are most commonly involved in these crimes. Importantly, this latter question is just as relevant as the first ones, but also highlights the limitations of social data. However, it is possible to examine if there is a similarity in the spatial distribution of the two crimes. The figure below highlights the relative risk of Assault and Robbery in the districts of San Francisco, revealing interesting patterns but also differences. This map reflects the relative risk understood as relative to the registered crime categories within the dataset. This means, that if the risk ratio is greater than one, the crime occurs more frequently than other crimes within that district, and vice versa if it is less than one.               
+        </p>
     </div>
 
-    <!-- TEXT -->
-    <div class="viz-text">
-      <h3>Insights</h3>
-      <p>
-        The heatmap shows where crime is concentrated across San Francisco.
-        Clear hotspots appear in central and high-activity areas.
-      </p>
+    <div class="viz">
+        <iframe src="Visualization/crime_probability_by_district.html"></iframe>
     </div>
 
-  </div>
+    <p class="fig-caption">
+       The relative risk of the occurrence of incidents of Assault and Robbery in San Francisco. This is shown by data from two decades covering incidents of Assault and Robbery in the districts of San Francisco from 2003-2025. 
+    </p>
 </section>
-  <footer>
-    <div class="container">
-      Data science portfolio focused on long-term crime patterns in San Francisco.
-    </div>
-  </footer>
+
+<div class="text-box">
+     <p>
+           Looking at the map, at first glance one might find that the spatial distributions between the two crimes are similar. In particular, it is fair to say that both crimes tend to occur in the south-eastern area of San Fracisco. For instance, looking at the district Tenderloin, both Assaults and Robberies occur more frequently. This is not surprising as Tenderloin has the highest crime rate in San Francisco and is known for its violent streets, despite its small size (San Francisco, n.d.). <br>
+However, taking a closer look noteable differences appear. While robbery occurs more frequently in the district Ingleside, the frequency of Assault remain the same level within the district.   
+      </p>
+     <p>
+In general, the southern and eastern part of San Francisco are characterized as more violent and rough neighborhoods whereas the northern and western part of San Fracisco are considered more safe (Reolink, 2026). The frequency of assaults and robberies follows this overall trend.  
+           </p>
+<p>
+         As we examine the reason for correlations between Assault and Robbery, it is important to emphasize that conclusion can not solely be made upon the spatial distribution. Moreover, the data only captures what has been registered by San Francisco Police Department, and thus does not account for unregistered crimes or geographical uncertainties (Gerell, 2018). <br>
+While spatial distribution  represents one parameter to examine correlation, other parameters should also be considered for a comprehensive examination
+        </p>
+</div>
+<section class="references">
+    <h2>References</h2>
+
+    <p>
+        San Francisco.(n.d.). In <em>Wikipedia</em>. Retrieved March 26, 2026, from 
+        <a href="https://en.wikipedia.org/wiki/San_Francisco" target="_blank">
+            https://en.wikipedia.org/wiki/San_Francisco
+        </a>
+    </p>
+
+    <p>
+        Reolink. (2026). <em>Top 10 safest neighborhoods in San Francisco</em>. Retrieved March 26, 2026, from 
+        <a href="https://reolink.com/blog/safest-neighborhoods-in-san-francisco/" target="_blank">
+            https://reolink.com/blog/safest-neighborhoods-in-san-francisco/
+        </a>
+    </p>
+
+    <p>
+        Gerell, M. (2018). <em>Quantifying the geographical (un)reliability of police data</em>. Scandinavian University Press. 
+        <a href="https://doi.org/10.18261/issn.1894-8693-2018-02-05" target="_blank">
+            https://doi.org/10.18261/issn.1894-8693-2018-02-05
+        </a>
+    </p>
+</section>
+
 </body>
 </html>
