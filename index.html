@@ -142,7 +142,7 @@
     </h1>
 
     <p>
-        Drawing on two decades of data, this analysis uncovers how assault and robbery are interconnected across San Francisco's urban landscape. Want to know where it's safe to explore—and where to stay cautious? Read on.
+        Drawing on two decades of data, this analysis uncovers how assault and robbery are interconnected across San Francisco's urban landscape. Want to know where and when it's safe to explore—and where to stay cautious? Read on.
     </p>
 </header>
 
@@ -150,15 +150,15 @@
     <div class="text-box">
         <p>
             The detection and prevention of crime is a  field that has been continuersly modernised and especially revolutionized since the implementation of larger crime data analysis in the form of predictive police software. Crime data is now used in most american police districts to systematically organise the departments ressources for the best prevention.<br> 
-Such data can be used to show statistical correlation, and help the police notice patterns in the occurence of different types of crimes. The flip side of large scale use of predictive police software is the missing reasoning for the analytical conclusions. Data analysis is based on numbers and categories and the specific definitions therefore has a large influence of what category the specific crime is classified under. Furthermore, socioeconomic, incidents and seasonal occasions are just other factors that has a great influence in explaining crime patterns, but is something that can not be solely explained through data.<br>
-It is therefore found interesting to look deeper into the relationship between different crime types, their occurence timewise and geographicly and further more their development the last twenty years, to help better understand what can be studied through data, and what needs to be further explained through other cultural and sociatal explanations.  <br>
+Such data can be used to show statistical correlation, and help the police notice patterns in the occurence of different types of crimes. The flip side of large scale use of predictive police software is the missing reasoning for the analytical conclusions (Angwin et al., 2025). Data analysis is based on numbers and categories and the specific definitions therefore has a large influence of what category the specific crime is classified under. Furthermore, socioeconomics, incidents and seasonal occasions are just other factors that has a great influence in explaining crime patterns, but is something that can not be solely explained through data.<br>
+It is therefore found interesting to look deeper into the relationship between different crime types, their occurence timewise and geographicly and furthermore their development the last twenty years, to help better understand what can be studied through data, and what needs to be further explained through other cultural and sociatal explanations.  <br>
 This article will explain such a study that will provide statistical analysis of crime data, while trying to compliment the explaining with other socio-economic evidence. The article will use a dataframe from the San Francisco Police Department with data concerning crime occurances from 2003-2026. To simplify the analysis it will be based on two crime types: Assault and Robbery. The reasoning for choosing these two crimes is that they at first glance are thought of as very similar. 
 Robbery and assault both occur more often in larger cities, can happen impulsively and is something that is associated with more socially vulnerable areas.  </p>
         
             <h2>The correlation between Assault & Robbery</h2>
         <p>
 But how does the two crimes relation look when studied further?
-Looking at the statistical relation of the two crimes in the graph below, it can be seen that the relation is very strong. Here the relation between the two crimes occurences during the different weekdays in San Francisco happens to have a r<sup>2</sup> value of 0.91. This means that the two crimes are very correlated and has very similar occurance patterns thorugh out the week.
+Looking at the statistical relation of the two crimes in the graph below, it can be seen that the relation is very strong. Here the relation between the two crimes occurences during the different weekdays in San Francisco happens to have a R<sup>2</sup> value of 0.91. This means that the two crimes are very correlated and has very similar occurance patterns thorugh out the week.
         </p>
     </div>
 
@@ -169,7 +169,7 @@ Looking at the statistical relation of the two crimes in the graph below, it can
 
 <section id="viz4">
     <div class="text-box">
-        <h2>Where do Assault and Robbery occur across the City?</h2>
+        <h2>Where do Assault & Robbery occur across the City?</h2>
         <p>
            A natural question that arises when observing this linear correlation is if there are other similarities between the two crimes, e.g. where the crimes occur or if there is a correlation in other timeframes. One might even ask which demographic groups are most commonly involved in these crimes. Importantly, this latter question is just as relevant as the first ones, but also highlights the limitations of social data. However, it is possible to examine if there is a similarity in the spatial distribution of the two crimes. The figure below highlights the relative risk of Assault and Robbery in the districts of San Francisco, revealing interesting patterns but also differences. This map reflects the relative risk understood as relative to the registered crime categories within the dataset. This means, that if the risk ratio is greater than one, the crime occurs more frequently than other crimes within that district, and vice versa if it is less than one.               
         </p>
@@ -193,14 +193,14 @@ However, taking a closer look noteable differences appear. While robbery occurs 
 In general, the southern and eastern part of San Francisco are characterized as more violent and rough neighborhoods whereas the northern and western part of San Fracisco are considered more safe (Reolink, 2026). The frequency of assaults and robberies follows this overall trend.  
            </p>
 <p>
-         As we examine the reason for correlations between Assault and Robbery, it is important to emphasize that conclusion can not solely be made upon the spatial distribution. Moreover, the data only captures what has been registered by San Francisco Police Department, and thus does not account for unregistered crimes or geographical uncertainties (Gerell, 2018). <br>
+         As we examine the reason for correlations between Assault and Robbery, it is important to emphasize that conclusions can not solely be made upon the spatial distribution. Moreover, the data only captures what has been registered by San Francisco Police Department, and thus does not account for unregistered crimes or geographical uncertainties (Gerell, 2018). <br>
 While spatial distribution  represents one parameter to examine correlation, other parameters should also be considered for a comprehensive examination
         </p>
  </div>
     
 <section id="viz4">
     <div class="text-box">
-        <h2>The weekly relation between Assault and Robbery</h2>
+        <h2>The weekly relation between Assault & Robbery</h2>
         <p>
           Returning to the high correlation between assaults and robberies when comparing weekdays, how does this actually look? Exploring the interactive visualization below gives more insight to the occurrences during the week. The most apparent insight is that the share of occurences are rather evenly spread throughout the week, 13.9-15.2% being the range for lowest to highest for robberies, 13.4-15.7% for assaults. However, there is a slight distinction between working days and weekends, with an increase in both types of crimes on weekends. The increase is more pronounced for assaults, contrasted with the more even distribution of robberies between days. An important caveat to consider is the scale at which these two crimes occur. Though they follow similar patterns, the number of assaults is much greater, around 3x more frequent.
                
@@ -226,6 +226,14 @@ While spatial distribution  represents one parameter to examine correlation, oth
 <section class="references">
     <h2>References</h2>
 
+        <p>
+        Angwin, J., Larson, J., Kirchner, L., Mattu, S., & Phiffer, D. (2025, October 29). Machine bias. ProPublica. 
+        <a href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">
+            https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing
+        </a>
+            
+    </p>
+    
     <p>
         San Francisco.(n.d.). In <em>Wikipedia</em>. Retrieved March 26, 2026, from 
         <a href="https://en.wikipedia.org/wiki/San_Francisco" target="_blank">
@@ -246,7 +254,8 @@ While spatial distribution  represents one parameter to examine correlation, oth
             https://doi.org/10.18261/issn.1894-8693-2018-02-05
         </a>
     </p>
-</section>
 
+</section>
+    
 </body>
 </html>
